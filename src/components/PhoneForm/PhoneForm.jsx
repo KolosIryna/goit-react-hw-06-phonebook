@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, addName, addNumber } from 'redux/contacts/sliceContacts';
+import { addContact } from 'redux/contacts/sliceContacts';
 import { selectorContacts } from 'redux/contacts/selectors';
 import css from './PhoneForm.module.css';
 
 export const PhoneForm = () => {
   const contacts = useSelector(selectorContacts);
-  const name = useSelector(state => state.contacts.name);
-  const number = useSelector(state => state.contacts.number);
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
   const dispatch = useDispatch();
 
   const handleInputChange = event => {
     const { name, value } = event.target;
     if (name === 'name') {
-      dispatch(addName(value));
+      setName(value);
     } else if (name === 'number') {
-      dispatch(addNumber(value));
+      setNumber(value);
     }
   };
 
@@ -33,8 +33,8 @@ export const PhoneForm = () => {
         ...formData,
       };
       dispatch(addContact(newContact));
-      dispatch(addName(''));
-      dispatch(addNumber(''));
+      setName('');
+      setNumber('');
     }
   };
 
