@@ -1,4 +1,15 @@
-export const Filter = ({ filter, handleFilterChange }) => {
+import { useDispatch, useSelector } from 'react-redux';
+import { selectorFilter } from 'redux/filter/selectorFilter';
+import { addFilter } from 'redux/filter/sliceFilter';
+
+export const Filter = () => {
+  const filter = useSelector(selectorFilter);
+  const dispatch = useDispatch();
+
+  const handleFilterChange = event => {
+    dispatch(addFilter(event.target.value));
+  };
+
   return (
     <div>
       <p>Find contacts by name</p>
